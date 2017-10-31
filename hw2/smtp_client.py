@@ -38,7 +38,7 @@ expect('DATA\r\n', 354)
 send(message)
 
 # Message ends with a single period
-expect(closeSequence, 250)
+expect(endSequence, 250)
 
 # Send QUIT command
 expect('QUIT\r\n', 221)

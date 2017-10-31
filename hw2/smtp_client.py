@@ -13,14 +13,15 @@ print(response)
 
 def send(command):
     clientSocket.send(command.encode())
+    print(command, end="")
     response = clientSocket.recv(1024).decode()
-    print(response)
+    print('>', response, end="")
     return response
 
 def expect(command, expectedCode):
     response = send(command)
     if response[:3] != str(expectedCode):
-        print(str(expectedCode) + ' reply not received from server.')
+        print(str(expectedCode), 'reply not received from server.')
 
 # Send HELO command
 expect('HELO Alice\r\n', 250)

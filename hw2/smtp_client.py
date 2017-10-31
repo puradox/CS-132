@@ -11,15 +11,11 @@ clientSocket.connect((mailserver, 25))
 response = clientSocket.recv(1024).decode()
 print(response)
 
-def send(command):
+def expect(command):
     clientSocket.send(command.encode())
     print(command, end="")
     response = clientSocket.recv(1024).decode()
     print('>', response, end="")
-    return response
-
-def expect(command, expectedCode):
-    response = send(command)
     if response[:3] != str(expectedCode):
         print(str(expectedCode), 'reply not received from server.')
 
@@ -35,11 +31,8 @@ expect('RCPT TO: <sbalana@uci.edu>\r\n', 250)
 # Send DATA command
 expect('DATA\r\n', 354)
 
-# Send message data
-send(message)
-
-# Message ends with a single period
-expect(endSequence, 250)
+# Send message data (ending with a single period)
+expect(message + endSequence, 250)
 
 # Send QUIT command
 expect('QUIT\r\n', 221)

@@ -11,7 +11,7 @@ clientSocket.connect((mailserver, 25))
 response = clientSocket.recv(1024).decode()
 print(response)
 
-def expect(command):
+def expect(command, expectedCode):
     clientSocket.send(command.encode())
     print(command, end="")
     response = clientSocket.recv(1024).decode()
